@@ -152,12 +152,18 @@ This explicit graph is deliberately small enough to inspect manually. It capture
 === User Interface Architecture
 The prototype is implemented without an application framework using HTML, CSS, and JavaScript. The screen is divided into four layers. A left sidebar acts as the source catalogue of company blocks. A full-window HTML canvas represents the table surface and draws placed nodes, a subtle grid, connection lines, and labels. A right information panel shows the selected company's logo, role, description, products, and currently active partners. A MapLibre map provides geographic context, and a status badge near the lower edge summarizes whether the designated ecosystem is complete.
 
+#figure(
+  image("/assets/Bildschirmfoto vom 2026-09-14 10-35-59.png"),
+  caption: [Left sidebar with company catalogue.],
+) <left-sidebar>
+
+
 Visual design uses a dark radial background and translucent panels so that saturated node colors and animated connections remain prominent. Each company has a stable color used for its catalogue marker, canvas node, connection gradient, and information heading. Connections are rendered as dashed lines whose offset changes in an animation loop. This motion indicates flow and makes otherwise static graph edges perceptually salient. Text labels at the edge midpoint explain the semantic relation rather than relying on color or proximity alone.
 
 #figure(
   image("/assets/image.png"),
   caption: [Prototype interface preview.],
-) <mein-bild>
+) <prototype-preview>
 
 
 === Interaction and State Management
@@ -172,55 +178,27 @@ The completion indicator uses a rule-based checkpoint. A configuration is consid
 
 MapLibre GL JS renders OpenStreetMap raster tiles. The museum is represented by a fixed red reference marker; companies with coordinates are added or removed with their nodes, after which the viewport fits all current markers. Only three company records currently contain coordinates, so the map is a partial proof of concept. Both the MapLibre library and map tiles are loaded from external services, which makes the current prototype dependent on network access.
 
+#figure(
+  image("/assets/Bildschirmfoto vom 2026-09-14 10-37-59.png"),
+  caption: [Map view with company markers.],
+) <prototype-map>
+
 == Evaluation
 === Evaluation Approach
-No completed participant study or quantitative dataset is included in the project material. We therefore conducted a formative evaluation consisting of source inspection, a desktop browser smoke test, and scenario-based reasoning against the stated requirements. The smoke test checked initial rendering, content availability, console behavior, and external dependencies. Source inspection traced the state transitions for adding, moving, selecting, connecting, and removing nodes. This method can identify implementation gaps and testability risks, but it cannot establish usability, engagement, learning, or museum suitability.
 
-#figure(
-  table(
-    columns: (22%, 28%, 1fr),
-    inset: 5pt,
-    stroke: 0.4pt + gray,
-    fill: (x, y) => if y == 0 { blue } else { none },
-    table.header([*Scenario*], [*Evidence inspected*], [*Formative result*]),
-    [Initial orientation], [Desktop browser smoke test], [The title, instruction, ten company blocks, information panel, map area, and incomplete-network badge establish the starting state.],
-    [Build a network], [Pointer handlers and relation renderer], [The implementation supports placement and movement and reveals an edge only when both endpoints are present. Seventeen relations are available.],
-    [Inspect and revise], [Detail filtering and sidebar return path], [A tap exposes products and active partners; dragging back removes the node and corresponding map marker.],
-    [Operate without network], [Dependency and console inspection], [The base interface renders, but externally hosted MapLibre code and map tiles are a single point of failure for local or offline exhibition use.],
-  ),
-  caption: [Formative evaluation scenarios. Results describe prototype behavior or implementation evidence, not participant outcomes.],
-) <tab-evaluation>
 === Findings
 
-The central concept is represented coherently. A company exists as a catalogue item, a movable node, a detail record, a possible map marker, and an endpoint in a relation graph. The user does not need to switch modes to create or rearrange the network. Immediate redraw and animated edges provide visible cause and effect, and relation labels make the graph more informative than a purely decorative node-link diagram. The use of one pointer event model and a central placement function also reduces the gap between the browser mock-up and future tangible input.
-
-The evaluation identified four priority limitations. First, robustness is insufficient for a permanent exhibit: external scripts and tiles should be bundled, cached, or replaced with an offline map package. A failed MapLibre load currently interrupts later JavaScript initialization. Second, accessibility is limited. Canvas nodes and edges have no semantic representation for screen readers, the company blocks are not keyboard-operable, and fixed overlay panels can obscure the working area on small displays. Third, the graph is authored entirely in code. Adding or correcting companies requires source changes, and several companies lack coordinates. Fourth, the completion state is not derived from a general model of industrial roles or connected paths; it is a hard-coded list of five identifiers.
 
 == Discussion
 
-The prototype supports the project's main design argument: industrial interdependence can be represented as a configuration that visitors construct rather than a diagram they only read. Direct manipulation, spatial layout, progressive detail, and animated relationships combine into a legible exploratory loop. The regional map and company-specific products connect abstract roles to a local context, which is important for the intended Freiberg museum setting.
-
-However, the web prototype validates representation more strongly than tangibility. Mouse or touch dragging does not reproduce the weight, grasp, visibility, and group negotiation introduced by physical blocks. It also does not test occlusion under projection, camera tracking errors, accidental token movement, or whether several visitors can comfortably reach the same surface. Claims about collaboration and child engagement from prior work @horn2009 motivate the installation but cannot be transferred to this prototype without observation.
-
-The current company graph raises a second interpretive issue. A museum visualization may be read as asserting factual supply relationships. Labels such as "sensor data" or "energy infrastructure" are plausible educational connections, but their provenance is not stored. Before exhibition, each node and edge should include a source, review status, date, and content owner. A role-based layer could then distinguish general process compatibility from verified cooperation between named companies.
 
 === Design Implications
 
-The findings suggest that the next version should separate three concerns that are currently combined in one JavaScript file. A content layer should store companies, technologies, coordinates, sources, and reviewed relationships in a machine-readable format. A domain layer should interpret this graph, check whether a configuration forms a meaningful connected path, and generate explanatory feedback. The presentation layer should render the same state through canvas, a semantic text view, the map, and later the projector. This separation would allow museum staff to revise content without changing interaction code and would permit multiple front ends to share one verified model.
-
-The exhibit should also communicate uncertainty explicitly. A solid link could indicate a sourced, company-specific relationship, while a visually distinct link could indicate general technological compatibility. Selecting an edge, not only a node, should reveal its explanation and source. This would turn the system from a persuasive visualization into an inspectable learning resource and reduce the risk that visitors mistake a simplified narrative for a complete supply-chain record.
 
 === Threats to Validity
 
-The evaluation has deliberately narrow validity. It analyzes one repository snapshot and a desktop browser configuration; behavior may differ on large touchscreens, mobile browsers, or the final table. The browser smoke test confirms initial rendering and exposes dependency behavior, while interaction paths are primarily supported by source inspection rather than a repeatable automated test suite. No museum visitors or domain experts participated, so the report makes no empirical claim about intuitiveness, engagement, collaboration, knowledge gain, or the accuracy of company relationships. Finally, the graphical prototype omits the physical variables that motivate the project, including token shape and weight, reach, occlusion, camera confidence, projector brightness, and simultaneous access from different sides. These limitations define the scope of the conclusions and the tests required for the next iteration.
-
-The most appropriate next evaluation is two-stage. First, conduct semi-structured interviews with museum and industry experts using the web prototype. Ask them to validate the narrative, terminology, companies, and relation labels and to identify missing roles. Second, after constructing a reliable tangible demonstrator, observe representative visitors performing short tasks without prior explanation. Measures should include task completion, time to first successful connection, number and type of assistance requests, explored companies, and whether participants can explain at least one value chain afterward. Brief interviews can then capture perceived clarity, interest, missing information, and confusion. Families and school groups should be observed as groups because collaboration is part of the interaction rationale.
-
 == Conclusion and Future Work
 
-This project translates the concept of a tangible industrial-network table into a functioning browser prototype. Ten regional actors, seventeen labeled relationships, company and product information, animated graph feedback, a completion state, and a geographic view together make an otherwise invisible ecosystem explorable. The implementation is deliberately simple and offers a clear integration boundary for later object recognition.
-
-The prototype is ready for expert content review, but not for claims about visitor learning or for unattended museum deployment. Immediate engineering work should externalize the graph into a validated data file, complete geographic metadata, calculate completion from roles and connected paths, bundle all dependencies for offline operation, and add a semantic DOM or equivalent accessible view. The physical iteration should use fiducial markers or another robust recognition method, transform camera coordinates into projector coordinates, and provide clear feedback for lost or ambiguous tokens. Finally, the two-stage evaluation described above should compare the web and tangible versions where useful and test the installation in the intended social and spatial setting. These steps would turn the current concept demonstrator into both a maintainable exhibit and a defensible study of tangible interaction for regional industrial education.
 
 == Acknowledgements
 
