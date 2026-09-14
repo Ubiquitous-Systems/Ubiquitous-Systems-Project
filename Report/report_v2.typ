@@ -149,6 +149,12 @@ This explicit graph is deliberately small enough to inspect manually. It capture
 ) <fig-pipeline>
 
 == Implementation
+
+#align(center)[
+  #link("https://ubiquitous-systems.github.io/Ubiquitous-Systems-Project/Prototyp/main.html")[#emph[Prototype Link for Direct Interaction hosted on GitHub Pages]]
+  ]
+
+
 === User Interface Architecture
 The prototype is implemented without an application framework using HTML, CSS, and JavaScript. The screen is divided into four layers. A left sidebar acts as the source catalogue of company blocks. A full-window HTML canvas represents the table surface and draws placed nodes, a subtle grid, connection lines, and labels. A right information panel shows the selected company's logo, role, description, products, and currently active partners. A MapLibre map provides geographic context, and a status badge near the lower edge summarizes whether the designated ecosystem is complete.
 
