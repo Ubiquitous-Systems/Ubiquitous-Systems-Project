@@ -33,7 +33,7 @@
   subtitle: "Interactive Ubiquitous Systems and Intelligent User Interfaces",
   authors: ((
     name: "Jason Dippmann, Georg Forberger, Marvin Menzel, Ben Weckend",
-    studentID: "xxxxx, xxxxx, 66642, xxxxx",
+    studentID: "xxxxx, 66858, 66642, xxxxx",
   ),),
   supervisors: ((
     title: "Dr.",
