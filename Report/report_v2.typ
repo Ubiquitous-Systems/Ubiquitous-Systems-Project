@@ -28,12 +28,12 @@
 
 // report template
 #show: tubaf.report.with(
-  type: "Projektbericht",
+  type: "Project Report",
   title: "Report: Tangible Interface Desk",
   subtitle: "Interactive Ubiquitous Systems and Intelligent User Interfaces",
   authors: ((
-    name: "Georg Forberger, Jason Dippmann, Marvin Menzel, Ben Weckend",
-    studentID: "...",
+    name: "Jason Dippmann, Georg Forberger, Marvin Menzel, Ben Weckend",
+    studentID: "xxxxx, xxxxx, 66642, xxxxx",
   ),),
   supervisors: ((
     title: "Dr.",
@@ -43,8 +43,8 @@
     title: "Dr.",
     name: "Akshay Deshmukh",
   ),),
-  lang: "de",
-  extra_outlines: (table_of_symbols,),
+  lang: "en",
+  // extra_outlines: (table_of_symbols,),
   //references: "references.bib"
 )
 
