@@ -25,6 +25,7 @@
   )
 }
 
+#let lang = "en"
 
 // report template
 #show: tubaf.report.with(
@@ -43,7 +44,7 @@
     title: "Dr.",
     name: "Akshay Deshmukh",
   ),),
-  lang: "en",
+  lang: lang,
   // extra_outlines: (table_of_symbols,),
   //references: "references.bib"
 )
@@ -244,4 +245,4 @@ We thank Dr. Akshay Deshmukh for guidance within the course *Interactive Ubiquit
 
 
 #pagebreak()
-#bibliography("references.bib", style: "association-for-computing-machinery")
+#bibliography("references.bib", style: "association-for-computing-machinery", title: tubaf.translation.at(lang).bibliography)
