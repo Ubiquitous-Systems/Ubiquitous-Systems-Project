@@ -171,9 +171,11 @@ Together, the actors and connections form a graph illustrating a pathway (see #r
 
 = Implementation
 
-#align(center)[
-  #link("https://ubiquitous-systems.github.io/Ubiquitous-Systems-Project/Prototyp/main.html")[#emph[Prototype Link for Direct Interaction hosted on GitHub Pages]]
-  ]
+This chapter describes the implementation of the web-based prototype, including its interface architecture, interaction and state management, and system status and geographic context. The prototype is available at GitHub#footnote[
+  #link(
+    "https://ubiquitous-systems.github.io/Ubiquitous-Systems-Project/Prototyp/main.html",
+  )
+].
 
 
 == User Interface Architecture
