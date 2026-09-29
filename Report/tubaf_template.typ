@@ -38,7 +38,7 @@
     example: "Example",
     proof: "Proof",
     studentID: "Student-ID",
-    bibliography: "Bibliography",
+    bibliography: "References",
     table_of_figures: "Table of Figures",
     table_of_tables: "Table of Tables",
     declaration_of_authenticity: "Declaration of Authenticity",

@@ -25,6 +25,7 @@
   )
 }
 
+#let lang = "en"
 
 // report template
 #show: tubaf.report.with(
@@ -43,7 +44,7 @@
     title: "Dr.",
     name: "Akshay Deshmukh",
   ),),
-  lang: "en",
+  lang: lang,
   // extra_outlines: (table_of_symbols,),
   //references: "references.bib"
 )
@@ -89,24 +90,30 @@ Based on the concept and intended target groups, five main design requirements w
 - Regional grounding: The prototype should connect industrial roles and processes with companies and locations in Saxony.
 
 == Content Model
+The prototype implementation includes ten actors: Bergbau Sachsen, GEMAC Chemnitz, FlowLogiX, XENON, Sunfire, i2S Dresden, 3D-Micromac, Kontron AIS, WESOBA, and Siemens Energy. Each actor has an identifier, display name, industrial role, short description, products or technologies, logo path, color, and optionally geographic coordinates. A separate relation list defines directed links between the actors such as sensor data, diagnostics data, production optimization, automation, sustainable production, and energy infrastructure.
+
+Together, the actors and connections form a graph illustrating a pathway from raw materials, through sensor technology and data processing, to automation and energy. At the same time, they are simply placeholders created for the prototype and do not represent the final design. Therefore, review and adjustment by experts are required before public launch.
+
 
 = Implementation
 
-#align(center)[
-  #link("https://ubiquitous-systems.github.io/Ubiquitous-Systems-Project/Prototyp/main.html")[#emph[Prototype Link for Direct Interaction hosted on GitHub Pages]]
-  ]
+This chapter describes the implementation of the web-based prototype, including its interface architecture, interaction and state management, and system status and geographic context. The prototype is available at GitHub#footnote[
+  #link(
+    "https://ubiquitous-systems.github.io/Ubiquitous-Systems-Project/Prototyp/main.html",
+  )
+].
 
 
 == User Interface Architecture
-The prototype is implemented without an application framework using HTML, CSS, and JavaScript. The screen is divided into four layers. A left sidebar acts as the source catalogue of company blocks. A full-window HTML canvas represents the table surface and draws placed nodes, a subtle grid, connection lines, and labels. A right information panel shows the selected company's logo, role, description, products, and currently active partners. A MapLibre map provides geographic context, and a status badge near the lower edge summarizes whether the designated ecosystem is complete.
+The prototype is implemented in HTML, CSS, and JavaScript. The screen is divided into three main layers. A left-hand sidebar (#ref(<left-sidebar>)) serves as a list of company blocks or, in our prototype, company nodes. The centre of the screen features an HTML Canvas that fills the entire window and represents the table surface. It displays the placed nodes, a background grid, animated connecting lines and labels. On the right-hand side, an information panel displays information about the placed company, including its logo, role, a description, products and its currently connected partners. In addition, a map in the bottom right-hand corner provides geographical context, integrated via MapLibre. A status indicator at the bottom of the screen shows whether the resulting ecosystem is complete.
 
 #figure(
   image("/assets/Bildschirmfoto vom 2026-09-14 10-35-59.png"),
-  caption: [Left sidebar with company catalogue.],
+  caption: [Left sidebar with the list of companies.],
 ) <left-sidebar>
 
 
-Visual design uses a dark radial background and translucent panels so that saturated node colors and animated connections remain prominent. Each company has a stable color used for its catalogue marker, canvas node, connection gradient, and information heading. Connections are rendered as dashed lines whose offset changes in an animation loop. This motion indicates flow and makes otherwise static graph edges perceptually salient. Text labels at the edge midpoint explain the semantic relation rather than relying on color or proximity alone.
+The visual design uses a dark, grid-patterned background to ensure that the rich colours of the nodes and the animated connections stand out clearly. Each company has a designated colour, which is used consistently throughout the list, on the canvas, in the colour gradients of the connections and in the headings. Connections are represented as animated dotted lines by continuously varying the offset of the lines. This movement clarifies the direction of a connection and visually emphasises the static edges of the graph. Text labels at the centre of the connection clarify the semantic relationship, ensuring that it is not only indicated by colour. A preview of the interface is shown in #ref(<prototype-preview>).
 
 #figure(
   image("/assets/image.png"),
@@ -115,11 +122,11 @@ Visual design uses a dark radial background and translucent panels so that satur
 
 
 == Interaction and State Management
-The runtime state consists of a list of placed nodes and a map of active pointers. Pointer Events unify mouse, touch, and pen input. When a user presses a company block, the system creates a visual drag ghost. Releasing outside the sidebar calls a central `placeNode` function, removes the source block from the catalogue, adds a node at the pointer coordinates, updates company details, optionally adds a map marker, and redraws the canvas. This central function is also the intended integration point for future camera or TUIO recognition: recognized object identifiers and coordinates can enter the same state transition without duplicating presentation logic.
+The runtime state consists of a list of placed nodes and a mapping of active pointers. Pointer events combine mouse, touch and stylus inputs. When a user clicks on a company block, the system generates a visual drag ghost. Releasing the click outside the sidebar calls a central `placeNode` function, removes the company block from the catalogue, adds a node at the pointer coordinates, updates the company details, optionally adds a map marker, and redraws the workspace. This central function also serves as the intended integration point for future camera detection: detected object identifiers and coordinates can be incorporated into the same state transition without the need to duplicate the rendering logic.
 
-Placed nodes can be moved independently. The `activePointers` map stores pointer identifier, mode, start position, offset, and movement state, so several contacts can be tracked concurrently. A ten-pixel threshold distinguishes a tap from a drag. A tap opens company details; dragging a node back over the sidebar removes it and restores its original block. Although the code is multi-pointer-ready, genuine simultaneous multi-user interaction still needs to be tested on the target table hardware.
+Placed nodes can be moved independently of one another. The `activePointers` map stores pointer ID, mode, start position, offset and movement status, allowing multiple touches to be tracked simultaneously. A customisable threshold of ten pixels distinguishes a tap from a drag. A tap opens the company details; dragging a node allows it to be moved. If the node is dragged back to the sidebar, it is removed from the canvas and its original list entry is restored. Although the code is designed to support multiple pointers, true simultaneous interaction by multiple users still needs to be tested on the target tablet hardware.
 
-After every state change, the canvas is cleared and redrawn. For each relation, the renderer searches for both endpoint types in the node list. If both are present, it draws an animated gradient line and the relation label. Selecting a node filters the same relation list to present only active partners in the information panel. This shared data source keeps the graphical overview and textual detail consistent.
+The canvas is redrawn after every state change. For each relationship, the renderer searches the node list for both endpoint types. If both are present, it draws an animated connection line and the relationship label. Selecting a node filters the corresponding relationship list so that only connected partners are displayed in the information panel.
 
 == System Status and Geographic Context
 The status, as shown by the indicator at the bottom of the screen, uses a rule-based checkpoint. A configuration is considered active when it contains five designated roles represented by Bergbau Sachsen, GEMAC, FlowLogiX, XENON, and Sunfire. The indicator then changes from a red warning to a green confirmation to validate the configuration. This is effective as formative feedback, but the rule currently checks membership rather than actual graph connectivity or alternative valid value chains.
@@ -188,4 +195,4 @@ We thank Dr. Akshay Deshmukh for guidance within the course *Interactive Ubiquit
 
 
 #pagebreak()
-#bibliography("references.bib", style: "association-for-computing-machinery")
+#bibliography("references.bib", style: "association-for-computing-machinery", title: tubaf.translation.at(lang).bibliography)
