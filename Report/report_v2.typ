@@ -182,7 +182,7 @@ After every state change, the canvas is cleared and redrawn. For each relation, 
 == System Status and Geographic Context
 The status, as shown by the indicator at the bottom of the screen, uses a rule-based checkpoint. A configuration is considered active when it contains five designated roles represented by Bergbau Sachsen, GEMAC, FlowLogiX, XENON, and Sunfire. The indicator then changes from a red warning to a green confirmation to validate the configuration. This is effective as formative feedback, but the rule currently checks membership rather than actual graph connectivity or alternative valid value chains.
 
-MapLibre GL JS renders OpenStreetMap raster tiles. The museum is represented by a fixed red reference marker. Companies with coordinates are added or removed with their nodes, after which the viewport adjusts to fit all current markers. Only three company records currently contain coordinates, so the map is a partial proof of concept. Both, the MapLibre library and map tiles, are loaded from external services, which makes the current prototype dependent on network access.
+MapLibre GL JS renders OpenStreetMap raster tiles. The museum is represented by a fixed red reference marker. Companies with coordinates are added or removed with their nodes, after which the viewport adjusts to fit all current markers, as seen in @prototype-map. Only three company records currently contain coordinates, so the map is a partial proof of concept. Both, the MapLibre library and map tiles, are loaded from external services, which makes the current prototype dependent on network access.
 
 #figure(
   image("/assets/Bildschirmfoto vom 2026-09-14 10-37-59.png"),
