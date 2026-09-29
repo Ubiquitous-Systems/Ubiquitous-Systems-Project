@@ -107,45 +107,65 @@ Together, the actors and connections form a graph illustrating a pathway (see #r
   ],
 )
 
-#let pipeline-arrow = text(
+#let pipeline-rightarrow = text(
   size: 14pt,
   weight: "light",
   fill: arrow-color,
 )[→]
+
+#let pipeline-leftarrow = text(
+  size: 14pt,
+  weight: "light",
+  fill: arrow-color,
+)[←]
+
+#let pipeline-downarrow = text(
+  size: 14pt,
+  weight: "light",
+  fill: arrow-color,
+)[↓]
 
 #figure(
   align(
     center,
     grid(
       columns: (
-        1.25fr, auto,
-        1.25fr, auto,
-        1.25fr, auto,
-        1.25fr, auto,
+        1fr,
+        auto,
+        1.25fr,
+        auto,
         1.6fr,
+      ),
+      rows: (
+        auto,
+        17pt,
+        auto,
       ),
       column-gutter: 7pt,
       align: center + horizon,
 
-      pipeline-step[Raw materials],
-      pipeline-arrow,
+      // Zeile 1
+      pipeline-step[Raw #linebreak() materials], 
+      pipeline-rightarrow,
+      pipeline-step[Sensing], 
+      pipeline-rightarrow,
+      pipeline-step[Data & Processing],
 
-      pipeline-step[Sensing],
-      pipeline-arrow,
+      // Zeile 2
+      [], [], [], [], 
+      align(top, pipeline-downarrow),
 
-      pipeline-step[Edge / AI],
-      pipeline-arrow,
-
-      pipeline-step[Automation],
-      pipeline-arrow,
-
+      // Zeile 3
+      [],
+      [],
       pipeline-step[Energy & production],
+      pipeline-leftarrow,
+      pipeline-step[Automation],
     ),
   ),
 
   caption: [
-    Simplified narrative path represented by the prototype's company graph.
-    The interface permits non-linear combinations; the path is an explanatory abstraction.
+    Simplified path represented by the prototype's company graph. The interface permits non-linear combinations.
   ],
 ) <fig-pipeline>
 
