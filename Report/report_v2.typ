@@ -83,9 +83,9 @@ The concept and target groups were translated into five design requirements:
 - *Regional grounding:* the prototype should connect abstract industrial roles to companies and locations in Saxony.
 
 == Content Model
-The implementation models ten actors: Bergbau Sachsen, GEMAC Chemnitz, FlowLogiX, XENON, Sunfire, i2S Dresden, 3D-Micromac, Kontron AIS, WESOBA, and Siemens Energy. Each actor has an identifier, display name, industrial role, short description, products or technologies, logo path, color, and optionally geographic coordinates. A separate relation list defines seventeen undirected links such as sensor data, diagnostics data, production optimization, automation, sustainable production, and energy infrastructure.
+The prototype implementation includes ten actors: Bergbau Sachsen, GEMAC Chemnitz, FlowLogiX, XENON, Sunfire, i2S Dresden, 3D-Micromac, Kontron AIS, WESOBA, and Siemens Energy. Each actor has an identifier, display name, industrial role, short description, products or technologies, logo path, color, and optionally geographic coordinates. A separate relation list defines directed links between the actors such as sensor data, diagnostics data, production optimization, automation, sustainable production, and energy infrastructure.
 
-This explicit graph is deliberately small enough to inspect manually. It captures a narrative path from raw materials through sensing and data processing to automation and energy. At the same time, the labels should be understood as exhibition content authored for the prototype, not as a verified representation of commercial contracts. Domain review is therefore required before public deployment.
+Together, the actors and connections form a graph illustrating a pathway (see #ref(<fig-pipeline>)) from raw materials, through sensor technology and data processing, to automation and energy. At the same time, they are simply placeholders created for the prototype and do not represent the final design. Therefore, review and adjustment by experts are required before public launch.
 
 #let accent = rgb("#2563EB")
 #let card-fill = rgb("#F3F6FA")
