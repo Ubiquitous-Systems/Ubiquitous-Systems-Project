@@ -179,15 +179,15 @@ This chapter describes the implementation of the web-based prototype, including 
 
 
 == User Interface Architecture
-The prototype is implemented without an application framework using HTML, CSS, and JavaScript. The screen is divided into four layers. A left sidebar acts as the source catalogue of company blocks. A full-window HTML canvas represents the table surface and draws placed nodes, a subtle grid, connection lines, and labels. A right information panel shows the selected company's logo, role, description, products, and currently active partners. A MapLibre map provides geographic context, and a status badge near the lower edge summarizes whether the designated ecosystem is complete.
+The prototype is implemented in HTML, CSS, and JavaScript. The screen is divided into three main layers. A left-hand sidebar (#ref(<left-sidebar>)) serves as a list of company blocks or, in our prototype, company nodes. The centre of the screen features an HTML Canvas that fills the entire window and represents the table surface. It displays the placed nodes, a background grid, animated connecting lines and labels. On the right-hand side, an information panel displays information about the placed company, including its logo, role, a description, products and its currently connected partners. In addition, a map in the bottom right-hand corner provides geographical context, integrated via MapLibre. A status indicator at the bottom of the screen shows whether the resulting ecosystem is complete.
 
 #figure(
   image("/assets/Bildschirmfoto vom 2026-09-14 10-35-59.png"),
-  caption: [Left sidebar with company catalogue.],
+  caption: [Left sidebar with the list of companies.],
 ) <left-sidebar>
 
 
-Visual design uses a dark radial background and translucent panels so that saturated node colors and animated connections remain prominent. Each company has a stable color used for its catalogue marker, canvas node, connection gradient, and information heading. Connections are rendered as dashed lines whose offset changes in an animation loop. This motion indicates flow and makes otherwise static graph edges perceptually salient. Text labels at the edge midpoint explain the semantic relation rather than relying on color or proximity alone.
+The visual design uses a dark, grid-patterned background to ensure that the rich colours of the nodes and the animated connections stand out clearly. Each company has a designated colour, which is used consistently throughout the list, on the canvas, in the colour gradients of the connections and in the headings. Connections are represented as animated dotted lines by continuously varying the offset of the lines. This movement clarifies the direction of a connection and visually emphasises the static edges of the graph. Text labels at the centre of the connection clarify the semantic relationship, ensuring that it is not only indicated by colour. A preview of the interface is shown in #ref(<prototype-preview>).
 
 #figure(
   image("/assets/image.png"),
